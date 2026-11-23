@@ -74,10 +74,19 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a 
-                  href="#watchguide" 
+                  href="#posters" 
                   className="hover:text-white transition-colors flex items-center space-x-2"
                 >
                   <span className="text-doom-glow">04.</span>
+                  <span>OFFICIAL THEATRICAL POSTERS</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="#watchguide" 
+                  className="hover:text-white transition-colors flex items-center space-x-2"
+                >
+                  <span className="text-doom-glow">05.</span>
                   <span>WHAT TO WATCH BEFORE DOOMSDAY</span>
                 </a>
               </li>

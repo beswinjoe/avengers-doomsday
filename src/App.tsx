@@ -5,6 +5,7 @@ import { Navigation } from './components/Navigation';
 import { HeroSection } from './components/HeroSection';
 import { DoomArticle } from './components/DoomArticle';
 import { TrailerTheater } from './components/TrailerTheater';
+import { PosterGallery } from './components/PosterGallery';
 import { WatchGuideArticle } from './components/WatchGuideArticle';
 import { Footer } from './components/Footer';
 import { CinematicPreloader } from './components/CinematicPreloader';
@@ -46,7 +47,7 @@ export function App() {
 
   // Track active section for navigation
   useEffect(() => {
-    const sectionIds = ['hero', 'article', 'trailer', 'watchguide'];
+    const sectionIds = ['hero', 'article', 'trailer', 'posters', 'watchguide'];
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200;
       for (const id of sectionIds) {
@@ -104,6 +105,14 @@ export function App() {
 
         {/* Cinematic Teaser & Footage Theater */}
         <TrailerTheater />
+
+        {/* Seamless Hairline Divider */}
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-doom-glow/20 to-transparent" />
+        </div>
+
+        {/* Official Theatrical Posters & Character Key Art */}
+        <PosterGallery />
 
         {/* Seamless Hairline Divider */}
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6">

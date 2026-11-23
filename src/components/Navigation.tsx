@@ -79,6 +79,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'hero', label: 'COUNTDOWN' },
     { id: 'article', label: 'WHO IS DOOM?' },
     { id: 'trailer', label: 'THE TRAILER' },
+    { id: 'posters', label: 'POSTERS' },
     { id: 'watchguide', label: 'WHAT TO WATCH' }
   ];
 
