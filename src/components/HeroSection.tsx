@@ -126,8 +126,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <span className="w-2 h-2 rounded-full bg-crimson-glow animate-ping" />
           <span>MARVEL STUDIOS // PHASE SIX PREMIERE</span>
         </div>
-        <div className="text-[10px] tracking-widest text-silver-muted hidden sm:block">
-          THEATRICAL RELEASE: DECEMBER 17, 2026
+        <div className="flex items-center space-x-3 sm:space-x-4">
+          <a 
+            href="https://buymeacoffee.com/beswinjoe" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1.5 text-amber-400 hover:text-amber-300 transition-colors tracking-widest text-[10px] sm:text-[11px] font-bold"
+          >
+            <span>☕</span>
+            <span className="underline underline-offset-4 decoration-amber-500/50 hover:decoration-amber-300">buymeacoffee/beswinjoe</span>
+          </a>
+          <span className="text-white/20 hidden sm:inline">|</span>
+          <div className="text-[10px] tracking-widest text-silver-muted hidden sm:block">
+            DECEMBER 17, 2026
+          </div>
         </div>
       </div>
 

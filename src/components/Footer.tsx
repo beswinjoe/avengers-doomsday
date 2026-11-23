@@ -36,6 +36,18 @@ export const Footer: React.FC = () => {
             <div className="text-xs text-doom-bright tracking-widest uppercase font-bold pt-2">
               GLOBAL THEATRICAL PREMIERE: DECEMBER 17, 2026
             </div>
+
+            <div className="pt-2">
+              <a 
+                href="https://buymeacoffee.com/beswinjoe" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2 px-3 py-1.5 border border-amber-500/40 hover:border-amber-400 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs font-semibold tracking-wider transition-all rounded-sm"
+              >
+                <span>☕</span>
+                <span>SUPPORT ON BUY ME A COFFEE // buymeacoffee/beswinjoe</span>
+              </a>
+            </div>
           </div>
 
           {/* Quick Chapters */}

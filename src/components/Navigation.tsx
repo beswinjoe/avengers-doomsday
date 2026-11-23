@@ -151,8 +151,20 @@ export const Navigation: React.FC<NavigationProps> = ({
           })}
         </nav>
 
-        {/* Right: Sound & Fanfare Controls */}
+        {/* Right: Sound & Support Controls */}
         <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Buy Me a Coffee Support Link */}
+          <a
+            href="https://buymeacoffee.com/beswinjoe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1.5 px-2.5 py-1 border border-amber-500/30 hover:border-amber-400/80 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-[10px] sm:text-[11px] font-bold tracking-wider transition-all duration-200 group"
+            title="Support on Buy Me a Coffee (buymeacoffee/beswinjoe)"
+          >
+            <span className="text-amber-400 group-hover:scale-110 transition-transform">☕</span>
+            <span className="tracking-widest">SUPPORT</span>
+          </a>
+
           {/* Tick Sound Toggle */}
           <button
             onClick={handleToggleTick}
