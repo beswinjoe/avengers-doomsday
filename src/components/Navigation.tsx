@@ -80,7 +80,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'article', label: 'WHO IS DOOM?' },
     { id: 'trailer', label: 'THE TRAILER' },
     { id: 'posters', label: 'POSTERS' },
-    { id: 'watchguide', label: 'WHAT TO WATCH' }
+    { id: 'roadmap', label: 'ROADMAP' }
   ];
 
   const handleNavClick = (id: string) => {

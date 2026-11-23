@@ -83,11 +83,11 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a 
-                  href="#watchguide" 
+                  href="#roadmap" 
                   className="hover:text-white transition-colors flex items-center space-x-2"
                 >
                   <span className="text-doom-glow">05.</span>
-                  <span>WHAT TO WATCH BEFORE DOOMSDAY</span>
+                  <span>ROADMAP TO DOOMSDAY</span>
                 </a>
               </li>
             </ul>

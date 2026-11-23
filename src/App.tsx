@@ -6,7 +6,7 @@ import { HeroSection } from './components/HeroSection';
 import { DoomArticle } from './components/DoomArticle';
 import { TrailerTheater } from './components/TrailerTheater';
 import { PosterGallery } from './components/PosterGallery';
-import { WatchGuideArticle } from './components/WatchGuideArticle';
+import { DoomsdayRoadmap } from './components/DoomsdayRoadmap';
 import { Footer } from './components/Footer';
 import { CinematicPreloader } from './components/CinematicPreloader';
 
@@ -47,7 +47,7 @@ export function App() {
 
   // Track active section for navigation
   useEffect(() => {
-    const sectionIds = ['hero', 'article', 'trailer', 'posters', 'watchguide'];
+    const sectionIds = ['hero', 'article', 'trailer', 'posters', 'roadmap'];
     const handleScroll = () => {
       const scrollPos = window.scrollY + 200;
       for (const id of sectionIds) {
@@ -119,8 +119,8 @@ export function App() {
           <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-crimson-glow/20 to-transparent" />
         </div>
 
-        {/* Editorial Feature Article: What to Watch Before Doomsday */}
-        <WatchGuideArticle />
+        {/* Roadmap to Doomsday: Exact Serpentine Pathway matching reference */}
+        <DoomsdayRoadmap />
       </main>
 
       {/* Minimalist Editorial Footer */}
