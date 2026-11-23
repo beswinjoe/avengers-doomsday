@@ -6,6 +6,7 @@ import { sound } from '../utils/audio';
 export const DoomsdayRoadmap: React.FC = () => {
   const [selectedStep, setSelectedStep] = useState<RoadmapStep | null>(null);
   const [showFullImageModal, setShowFullImageModal] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<'posters' | 'logos'>('posters');
   const [watchedSteps, setWatchedSteps] = useState<Record<string, boolean>>(() => {
     try {
       const saved = localStorage.getItem('watched_roadmap_steps');
@@ -28,6 +29,22 @@ export const DoomsdayRoadmap: React.FC = () => {
   const handleSelectStep = (step: RoadmapStep) => {
     sound.playClick(1000);
     setSelectedStep(step);
+  };
+
+  const handleNextStep = () => {
+    if (!selectedStep) return;
+    const currentIdx = ROADMAP_DATA.findIndex((s) => s.id === selectedStep.id);
+    const nextIdx = (currentIdx + 1) % ROADMAP_DATA.length;
+    sound.playClick(900);
+    setSelectedStep(ROADMAP_DATA[nextIdx]);
+  };
+
+  const handlePrevStep = () => {
+    if (!selectedStep) return;
+    const currentIdx = ROADMAP_DATA.findIndex((s) => s.id === selectedStep.id);
+    const prevIdx = (currentIdx - 1 + ROADMAP_DATA.length) % ROADMAP_DATA.length;
+    sound.playClick(900);
+    setSelectedStep(ROADMAP_DATA[prevIdx]);
   };
 
   // Organize steps into 5 rows of 3 items
@@ -87,13 +104,27 @@ export const DoomsdayRoadmap: React.FC = () => {
           The definitive 16-title viewing pathway linking the Fox X-Men saga, the Infinity Saga, and the Multiverse Saga directly into <span className="text-white font-semibold">Avengers: Doomsday</span>.
         </motion.p>
 
-        {/* Progress Tracker & Full Graphic Button */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs font-bold uppercase tracking-wider">
+        {/* Progress Tracker & Controls HUD */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-bold uppercase tracking-wider">
+          {/* Progress Tracker */}
           <div className="px-4 py-1.5 bg-void/80 border border-white/15 text-silver-bright flex items-center space-x-2">
             <span>PREPARATION PROGRESS:</span>
             <span className="text-doom-bright">{watchedCount} / 15 WATCHED</span>
           </div>
 
+          {/* View Mode Toggle: Poster Art vs Clean Logos */}
+          <button
+            onClick={() => {
+              sound.playClick(950);
+              setViewMode(viewMode === 'posters' ? 'logos' : 'posters');
+            }}
+            onMouseEnter={() => sound.playHover()}
+            className="px-4 py-1.5 bg-charcoal/80 hover:bg-charcoal border border-white/20 hover:border-doom-glow text-silver-bright transition-all"
+          >
+            <span>VIEW: {viewMode === 'posters' ? '🖼 POSTER ART' : '⚡ TITLE LOGOS'}</span>
+          </button>
+
+          {/* Full Graphic Modal Button */}
           <button
             onClick={() => {
               sound.playClick(1000);
@@ -128,6 +159,7 @@ export const DoomsdayRoadmap: React.FC = () => {
                 <div key={item.id} className="relative flex items-center">
                   <RoadmapCard
                     item={item}
+                    viewMode={viewMode}
                     isWatched={!!watchedSteps[item.id]}
                     onSelect={() => handleSelectStep(item)}
                     onToggleWatched={(e) => toggleWatched(item.id, e)}
@@ -156,6 +188,7 @@ export const DoomsdayRoadmap: React.FC = () => {
                 <div key={item.id} className="relative flex items-center">
                   <RoadmapCard
                     item={item}
+                    viewMode={viewMode}
                     isWatched={!!watchedSteps[item.id]}
                     onSelect={() => handleSelectStep(item)}
                     onToggleWatched={(e) => toggleWatched(item.id, e)}
@@ -183,6 +216,7 @@ export const DoomsdayRoadmap: React.FC = () => {
                 <div key={item.id} className="relative flex items-center">
                   <RoadmapCard
                     item={item}
+                    viewMode={viewMode}
                     isWatched={!!watchedSteps[item.id]}
                     onSelect={() => handleSelectStep(item)}
                     onToggleWatched={(e) => toggleWatched(item.id, e)}
@@ -210,6 +244,7 @@ export const DoomsdayRoadmap: React.FC = () => {
                 <div key={item.id} className="relative flex items-center">
                   <RoadmapCard
                     item={item}
+                    viewMode={viewMode}
                     isWatched={!!watchedSteps[item.id]}
                     onSelect={() => handleSelectStep(item)}
                     onToggleWatched={(e) => toggleWatched(item.id, e)}
@@ -236,6 +271,7 @@ export const DoomsdayRoadmap: React.FC = () => {
                 <div key={item.id} className="relative flex items-center">
                   <RoadmapCard
                     item={item}
+                    viewMode={viewMode}
                     isWatched={!!watchedSteps[item.id]}
                     onSelect={() => handleSelectStep(item)}
                     onToggleWatched={(e) => toggleWatched(item.id, e)}
@@ -289,7 +325,7 @@ export const DoomsdayRoadmap: React.FC = () => {
         </div>
       </div>
 
-      {/* Step Detail Dossier Modal */}
+      {/* Step Detail Dossier Modal (Showcases High-Res Poster) */}
       <AnimatePresence>
         {selectedStep && (
           <motion.div
@@ -297,75 +333,96 @@ export const DoomsdayRoadmap: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedStep(null)}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 select-none"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 15 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-xl w-full bg-charcoal border border-hairline-doom p-6 sm:p-8 shadow-2xl"
+              className="relative max-w-3xl w-full max-h-[90vh] bg-charcoal border border-hairline-doom flex flex-col md:flex-row overflow-hidden shadow-2xl"
             >
-              {/* Close Button */}
+              {/* Close Button Top Right */}
               <button
                 onClick={() => setSelectedStep(null)}
-                className="absolute top-4 right-4 w-7 h-7 border border-white/20 text-silver-muted hover:text-white flex items-center justify-center text-xs font-bold"
+                className="absolute top-3 right-3 z-20 w-8 h-8 rounded-none border border-white/20 hover:border-doom-glow bg-void/80 text-silver-muted hover:text-white flex items-center justify-center text-xs font-bold transition-all"
+                title="Close (Esc)"
               >
                 ✕
               </button>
 
-              {/* Logo Preview */}
-              <div className="mb-4 max-h-20 flex items-center justify-center bg-black/50 p-3 border border-white/10">
+              {/* Left Column: Official Poster Artwork */}
+              <div className="md:w-5/12 bg-black relative flex items-center justify-center p-3 sm:p-4 overflow-hidden border-b md:border-b-0 md:border-r border-white/10">
                 <img
-                  src={selectedStep.logoUrl}
+                  src={selectedStep.posterUrl}
                   alt={selectedStep.title}
-                  className="max-h-14 w-auto object-contain"
+                  className="max-h-[60vh] w-auto object-contain filter contrast-110 drop-shadow-[0_10px_25px_rgba(0,0,0,0.9)]"
                 />
               </div>
 
-              {/* Title & Step Header */}
-              <div className="text-xs font-mono font-bold tracking-widest text-doom-glow uppercase mb-1">
-                STEP 0{selectedStep.stepNumber} // {selectedStep.releaseYear} • {selectedStep.universe}
-              </div>
+              {/* Right Column: Narrative & Incursion Dossier */}
+              <div className="md:w-7/12 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto">
+                <div>
+                  {/* Step Header */}
+                  <div className="text-xs font-mono font-bold tracking-widest text-doom-glow uppercase mb-1">
+                    ROADMAP STEP 0{selectedStep.stepNumber} // {selectedStep.releaseYear}
+                  </div>
 
-              <h3 className="font-extrabold text-2xl sm:text-3xl text-white tracking-tight uppercase mb-3">
-                {selectedStep.title}
-              </h3>
+                  <h3 className="font-extrabold text-2xl sm:text-3xl text-white tracking-tight uppercase mb-2">
+                    {selectedStep.title}
+                  </h3>
 
-              {/* Key Importance */}
-              <div className="p-3 bg-white/5 border-l-2 border-doom-glow mb-4">
-                <div className="text-[10px] font-bold uppercase tracking-wider text-doom-bright">
-                  ROADMAP SIGNIFICANCE:
+                  <div className="text-xs text-silver-muted font-medium uppercase tracking-wider mb-4">
+                    UNIVERSE: <span className="text-white font-semibold">{selectedStep.universe}</span>
+                  </div>
+
+                  {/* Key Importance */}
+                  <div className="p-3 bg-white/5 border-l-2 border-doom-glow mb-4">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-doom-bright">
+                      DOOMSDAY CANONICAL RELEVANCE:
+                    </div>
+                    <div className="text-sm font-semibold text-white mt-0.5">
+                      {selectedStep.importance}
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-sm text-silver-bright leading-relaxed font-light mb-6">
+                    {selectedStep.description}
+                  </p>
                 </div>
-                <div className="text-sm font-semibold text-white">
-                  {selectedStep.importance}
+
+                {/* Bottom Actions */}
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={handlePrevStep}
+                      className="px-2.5 py-1 text-xs border border-white/15 text-silver-muted hover:text-white"
+                      title="Previous Movie"
+                    >
+                      ←
+                    </button>
+                    <button
+                      onClick={handleNextStep}
+                      className="px-2.5 py-1 text-xs border border-white/15 text-silver-muted hover:text-white"
+                      title="Next Movie"
+                    >
+                      →
+                    </button>
+                  </div>
+
+                  <button
+                    onClick={(e) => toggleWatched(selectedStep.id, e)}
+                    className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all border ${
+                      watchedSteps[selectedStep.id]
+                        ? 'border-doom-glow bg-doom-dark text-doom-bright'
+                        : 'border-white/20 bg-void text-silver-bright hover:border-doom-glow'
+                    }`}
+                  >
+                    {watchedSteps[selectedStep.id] ? '✓ WATCHED' : '○ MARK AS WATCHED'}
+                  </button>
                 </div>
-              </div>
 
-              {/* Description */}
-              <p className="text-sm text-silver-bright leading-relaxed font-light mb-6">
-                {selectedStep.description}
-              </p>
-
-              {/* Actions */}
-              <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                <button
-                  onClick={(e) => toggleWatched(selectedStep.id, e)}
-                  className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all border ${
-                    watchedSteps[selectedStep.id]
-                      ? 'border-doom-glow bg-doom-dark text-doom-bright'
-                      : 'border-white/20 bg-void text-silver-bright hover:border-doom-glow'
-                  }`}
-                >
-                  {watchedSteps[selectedStep.id] ? '✓ MARKED AS WATCHED' : '○ MARK AS WATCHED'}
-                </button>
-
-                <button
-                  onClick={() => setSelectedStep(null)}
-                  className="text-xs font-bold tracking-wider uppercase text-silver-muted hover:text-white"
-                >
-                  CLOSE [ESC]
-                </button>
               </div>
             </motion.div>
           </motion.div>
@@ -380,7 +437,7 @@ export const DoomsdayRoadmap: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setShowFullImageModal(false)}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 select-none"
           >
             <div className="relative max-w-2xl w-full flex flex-col items-center">
               <button
@@ -403,9 +460,10 @@ export const DoomsdayRoadmap: React.FC = () => {
   );
 };
 
-// Sub-component for individual roadmap cards
+// Sub-component for individual roadmap cards with dual poster/logo view
 interface RoadmapCardProps {
   item: RoadmapStep;
+  viewMode: 'posters' | 'logos';
   isWatched: boolean;
   onSelect: () => void;
   onToggleWatched: (e: React.MouseEvent) => void;
@@ -413,6 +471,7 @@ interface RoadmapCardProps {
 
 const RoadmapCard: React.FC<RoadmapCardProps> = ({
   item,
+  viewMode,
   isWatched,
   onSelect,
   onToggleWatched
@@ -422,23 +481,36 @@ const RoadmapCard: React.FC<RoadmapCardProps> = ({
       whileHover={{ scale: 1.04, y: -2 }}
       onClick={onSelect}
       onMouseEnter={() => sound.playHover()}
-      className={`group relative w-full aspect-[16/10] sm:aspect-[16/9] bg-charcoal/90 border cursor-pointer transition-all duration-300 p-2 sm:p-3 flex flex-col justify-between overflow-hidden shadow-lg ${
+      className={`group relative w-full aspect-[16/11] sm:aspect-[16/10] bg-charcoal/90 border cursor-pointer transition-all duration-300 p-2 sm:p-2.5 flex flex-col justify-between overflow-hidden shadow-lg ${
         isWatched
-          ? 'border-doom-glow/80 shadow-[0_0_15px_rgba(16,185,129,0.2)]'
-          : 'border-white/15 hover:border-blue-400/80 hover:shadow-[0_0_20px_rgba(59,130,246,0.25)]'
+          ? 'border-doom-glow/80 shadow-[0_0_15px_rgba(16,185,129,0.25)]'
+          : 'border-white/15 hover:border-blue-400/80 hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]'
       }`}
     >
+      {/* If viewMode is 'posters', show the glorious uploaded poster artwork in background */}
+      {viewMode === 'posters' && (
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <img
+            src={item.posterUrl}
+            alt={item.title}
+            className="w-full h-full object-cover object-center filter brightness-50 contrast-125 group-hover:scale-105 group-hover:brightness-60 transition-all duration-500"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-void/70" />
+        </div>
+      )}
+
       {/* Top Header: Step Number & Watched Checkbox */}
-      <div className="flex items-center justify-between text-[9px] sm:text-[10px] font-mono text-silver-dim">
-        <span className="font-bold text-blue-400 group-hover:text-blue-300">
+      <div className="relative z-10 flex items-center justify-between text-[9px] sm:text-[10px] font-mono text-silver-dim">
+        <span className="font-bold text-blue-400 group-hover:text-blue-300 px-1 bg-void/80 border border-white/10">
           0{item.stepNumber}
         </span>
         <button
           onClick={onToggleWatched}
           className={`px-1.5 py-0.5 border text-[8px] font-bold uppercase transition-colors ${
             isWatched 
-              ? 'border-doom-glow text-doom-bright bg-doom-dark/40' 
-              : 'border-white/20 text-silver-dim hover:text-white'
+              ? 'border-doom-glow text-doom-bright bg-doom-dark/80' 
+              : 'border-white/20 text-silver-dim hover:text-white bg-void/80'
           }`}
           title={isWatched ? 'Watched' : 'Mark Watched'}
         >
@@ -447,25 +519,25 @@ const RoadmapCard: React.FC<RoadmapCardProps> = ({
       </div>
 
       {/* Center: Movie Logo */}
-      <div className="flex-1 flex items-center justify-center my-1">
+      <div className="relative z-10 flex-1 flex items-center justify-center my-1">
         <img
           src={item.logoUrl}
           alt={item.title}
-          className="max-h-10 sm:max-h-12 w-auto object-contain filter brightness-100 group-hover:brightness-110 transition-all drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+          className="max-h-9 sm:max-h-11 w-auto object-contain filter brightness-100 group-hover:brightness-110 transition-all drop-shadow-[0_3px_10px_rgba(0,0,0,0.95)]"
           loading="lazy"
         />
       </div>
 
       {/* Bottom Year & Universe */}
-      <div className="text-[8px] sm:text-[9px] text-silver-dim truncate font-medium flex items-center justify-between border-t border-white/5 pt-1">
-        <span>{item.releaseYear}</span>
-        <span className="text-blue-400/80 group-hover:text-white transition-colors">
-          INFO ↗
+      <div className="relative z-10 text-[8px] sm:text-[9px] text-silver-bright truncate font-medium flex items-center justify-between border-t border-white/10 pt-1">
+        <span className="text-silver-muted">{item.releaseYear}</span>
+        <span className="text-blue-400/90 group-hover:text-white font-semibold transition-colors">
+          DOSSIER ↗
         </span>
       </div>
 
       {/* Subtle Blue Glow on hover */}
-      <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+      <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10" />
     </motion.div>
   );
 };

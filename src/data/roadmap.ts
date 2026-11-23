@@ -7,6 +7,7 @@ export interface RoadmapStep {
   importance: string;
   description: string;
   logoUrl: string;
+  posterUrl: string;
   direction: 'right' | 'down' | 'left';
   row: number;
   col: number; // 0, 1, 2
@@ -23,6 +24,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The Genesis of Live-Action Mutants',
     description: 'Introduces Patrick Stewart’s Charles Xavier, Hugh Jackman’s Wolverine, and James Marsden’s Cyclops. Establishes the foundational mutant universe that converges directly into Battleworld.',
     logoUrl: '/assets/roadmap/01-xmen.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-xmen.jpg',
     direction: 'right',
     row: 1,
     col: 0
@@ -36,6 +38,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'Mutant-Human War & Weapon X',
     description: 'Deepens the tragedy of mutant persecution and Stryker’s anti-mutant agenda, cementing Scott Summers and Logan as the core leaders whose reality will face multiversal collapse.',
     logoUrl: '/assets/roadmap/02-xmen2.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-x2.jpg',
     direction: 'right',
     row: 1,
     col: 1
@@ -49,6 +52,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The Origin of Steve Rogers & The Tesseract',
     description: 'Steve Rogers takes the Super Soldier Serum to defeat Red Skull, recovering the Space Stone (Tesseract). Establishes the moral compass of the Avengers saga.',
     logoUrl: '/assets/roadmap/03-cap1.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-cap1.jpg',
     direction: 'down',
     row: 1,
     col: 2
@@ -64,6 +68,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'Earth’s Mightiest Heroes Assemble',
     description: 'Iron Man, Captain America, Thor, Hulk, Black Widow, and Hawkeye unite to repel Loki’s Chitauri invasion in New York, putting Earth on the cosmic radar.',
     logoUrl: '/assets/roadmap/04-avengers1.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-avengers1.jpg',
     direction: 'left',
     row: 2,
     col: 2
@@ -77,6 +82,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The Inevitability of Thanos & Cosmic Collapse',
     description: 'Thanos collects all six Infinity Stones and wipes out half of all universal life with a snap of his fingers, demonstrating the fragility of universal balance.',
     logoUrl: '/assets/roadmap/05-infinitywar.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-infinitywar.jpg',
     direction: 'left',
     row: 2,
     col: 1
@@ -90,6 +96,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'Quantum Time Heist & Tony Stark’s Sacrifice',
     description: 'The Avengers utilize the Quantum Realm to resurrect the fallen. Tony Stark sacrifices his life with the Nano Gauntlet—the heroic sacrifice whose face Victor von Doom now wears.',
     logoUrl: '/assets/roadmap/06-endgame.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-endgame.jpg',
     direction: 'down',
     row: 2,
     col: 0
@@ -105,6 +112,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'Shattering of the Sacred Timeline',
     description: 'Sylvie executes He Who Remains, triggering infinite multiverse branches. Loki sacrifices his life to hold the branches together as the God of Stories at the center of Yggdrasil.',
     logoUrl: '/assets/roadmap/07-loki.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-loki.jpg',
     direction: 'right',
     row: 3,
     col: 0
@@ -118,6 +126,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'Ancient Cosmic Tech & The Beacon',
     description: 'Shang-Chi claims the Ten Rings—mysterious ancient artifacts transmitting a powerful beacon outward across the multiverse, detected by Captain Marvel, Bruce Banner, and Wong.',
     logoUrl: '/assets/roadmap/08-shangchi.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-shangchi.jpg',
     direction: 'right',
     row: 3,
     col: 1
@@ -131,6 +140,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The First Multiversal Rift in Earth-616',
     description: 'Doctor Strange’s corrupted memory spell rips the fabric of space-time, pulling Peter Parkers and villains from alternate realities and proving the multiverse boundary is tearing.',
     logoUrl: '/assets/roadmap/09-spiderman-nwh.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-spiderman-nwh.jpg',
     direction: 'down',
     row: 3,
     col: 2
@@ -146,6 +156,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The Global Cold War for Vibranium & Talokan',
     description: 'Wakanda mourns King T’Challa as Shuri becomes the Black Panther. Namor’s underwater kingdom of Talokan emerges, setting up oceanic alliances for the incursion crisis.',
     logoUrl: '/assets/roadmap/10-wakanda-forever.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-wakanda-forever.jpg',
     direction: 'left',
     row: 4,
     col: 2
@@ -159,6 +170,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The Official Introduction of Incursions',
     description: 'Reed Richards and the Illuminati define Incursions: when reality boundaries decay, two universes collide and extinguish each other. Clea summons Strange to fix an active incursion.',
     logoUrl: '/assets/roadmap/11-multiverse-madness.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-multiverse-madness.jpg',
     direction: 'left',
     row: 4,
     col: 1
@@ -172,6 +184,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'Anchor Beings & The Void Wasteland',
     description: 'Deadpool and Wolverine discover that realities die when their Anchor Beings fall. They battle Cassandra Nova in The Void—the dimensional scrapheap that Doom transforms into Battleworld.',
     logoUrl: '/assets/roadmap/12-deadpool-wolverine.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-deadpool-wolverine.jpg',
     direction: 'down',
     row: 4,
     col: 0
@@ -187,6 +200,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'Celestial Adamantium & Red Hulk',
     description: 'President Thaddeus Ross transforms into Red Hulk amidst international conflict over Adamantium mined from the corpse of Celestial Tiamut, leaving global defense broken.',
     logoUrl: '/assets/roadmap/13-cap-bravenewworld.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-bravenewworld.jpg',
     direction: 'right',
     row: 5,
     col: 0
@@ -200,6 +214,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The Anti-Heroes & The Sentry',
     description: 'Yelena Belova, Bucky Barnes, Red Guardian, and US Agent are deployed on covert missions, unleashing Bob Reynolds (The Sentry)—the man with the power of a million exploding suns.',
     logoUrl: '/assets/roadmap/14-thunderbolts.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-thunderbolts.jpg',
     direction: 'right',
     row: 5,
     col: 1
@@ -213,6 +228,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The First Family & The Doom Rivalry',
     description: 'Reed Richards, Sue Storm, Johnny Storm, and Ben Grimm face Galactus in their alternate 1960s universe. Their reality faces terminal incursion, pushing them into collision with Doom.',
     logoUrl: '/assets/roadmap/15-fantastic4.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-fantastic4.jpg',
     direction: 'down',
     row: 5,
     col: 2
@@ -228,6 +244,7 @@ export const ROADMAP_DATA: RoadmapStep[] = [
     importance: 'The Culmination of the Multiverse Saga',
     description: 'All 15 paths converge. As the multiverse collapses in final catastrophic incursion, Victor von Doom activates the Multiversal Siphon, forging existence into his own eternal realm: Battleworld.',
     logoUrl: '/assets/roadmap/16-doomsday.jpg',
+    posterUrl: '/assets/roadmap/posters/poster-doomsday.jpg',
     direction: 'down',
     row: 6,
     col: 1
